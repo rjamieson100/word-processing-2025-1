@@ -11,7 +11,7 @@ by adding a single letter into any position.
 
 class Main:
     def __init__(self) -> None:
-        self.words = open('./words.txt', 'r', encoding = 'utf8').read().splitlines()
+        self.words = open('./words.txt', 'r', encoding = 'utf-8').read().splitlines()
 
     def prepareWordlist(self, uppercase: bool = False) -> list:
         words = set()
