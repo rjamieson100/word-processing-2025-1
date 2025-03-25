@@ -40,8 +40,8 @@ functions = ["All Vowels", "Most Letters", "'Merica", "Backwards", "Odd/Even",
 
 authors = ["Farhan Mohammad", "Jun Li & Keith Marley", "Everett Campbell & Jasper Duff", 
            "Everett Campbell & Jasper Duff", "Everett Campbell & Jasper Duff", 
-           "Olivia Chezzi", "Luca Bugliari-Goggia & Qui Loi Tran", 
-           "Luca Bugliari-Goggia & Qui Loi Tran", "Luca Bugliari-Goggia & Qui Loi Tran",
+           "Olivia Chezzi", "Luca & Qui Loi Tran", 
+           "Luca & Qui Loi Tran", "Luca & Qui Loi Tran",
            "Jun Li & Keith Marley", "Jun Li & Keith Marley", "Aidan McFadden"]
 
 
@@ -89,6 +89,75 @@ def here_or_there(word_list, letter, num_1, num_2):
         return num_2
     else:
         return -1
+
+def crosswordSolver(pattern: str) -> list:
+    """
+    Returns a list of words from a wordlist that match the given pattern.
+    
+    The pattern can include '?' as a wildcard that matches any letter.
+    
+    @param pattern: The pattern to match, with '?' as a wildcard.
+    @return: A list of valid words matching the pattern, in lowercase.
+
+    Runtime: O(nk), where 'n' is the number of words in the wordlist and 'k' is the length of word.
+    """
+    __words__ = open('./words.txt', 'r', encoding = 'utf-8').read().splitlines()
+    valid_words = set()
+
+    for word in __words__:
+        if len(word) != len(pattern):
+            continue
+
+        match = True
+        for i in range(len(pattern)):
+            if pattern[i] != '?' and pattern.lower()[i] != word.lower()[i]:
+                match = False
+                break
+        if match:
+            valid_words.add(word.lower())
+    return list(valid_words)
+
+def minusOne(word: str) -> list:
+    """
+    Returns a list of words from a wordlist that can be formed by removing one character from `word`.
+    
+    @param word: The word from which a character will be removed.
+    @return: A list of valid words formed by removing one character from the input word, in lowercase.
+
+    Runtime: O(nk), where 'n' is the number of words in the wordlist and 'k' is the length of word.
+    """
+    __words__ = open('./words.txt', 'r', encoding = 'utf-8').read().splitlines()
+    valid_words = set()
+    word_variations = set()
+
+    for i in range(len(word)):
+        word_variations.add(word.lower()[:i] + word.lower()[i + 1:])
+
+    for word in __words__:
+        if word.lower() in word_variations:
+            valid_words.add(word.lower())
+    return list(valid_words)
+
+def plusOne(word: str) -> list:
+    """
+    Returns a list of words from a wordlist that can be formed by adding one letter to `word`.
+    
+    @param word: The word to which a single letter will be added.
+    @return: A list of valid words formed by adding one letter to the input word.
+        
+    O(26 * nk), where 'n' is the number of words in the wordlist, 'k' is the length of the word, 
+    and 26 accounts for the number of letters in the alphabet.
+    """
+    __words__ = open('./words.txt', 'r', encoding = 'utf-8').read().splitlines()
+    valid_words = set()
+
+    for letter in 'abcdefghijklmnopqrstuvwxyz':
+        for i in range(len(word) + 1):
+            altered_word = word.lower()[:i] + letter + word.lower()[i:]
+
+            if altered_word in __words__:
+                valid_words.add(altered_word)
+    return list(valid_words)
 
 def menu_phase(phase):
     
@@ -164,14 +233,20 @@ def function_menu():
         ##Instert call for Wordle Panic
         print("Merica")
     elif selection == 6:
+        word_to_solve = input('Word to Solve: ')
+        matched_words = crosswordSolver(word_to_solve)\
+        print(matched_words)
         ##Instert call for Crossword Solver
-        print("Merica")
     elif selection == 7:
+        word = input('Word to Minus One: ')
+        matched_words = minusOne(word)
+        print(matched_words)
         ##Instert call for Minus One
-        print("Merica")
     elif selection == 8:
+        word = input('Word to Plus One: ')
+        matched_words = plusOne(word)
+        print(matched_words)
         ##Instert call for Plus One
-        print("Merica")
     elif selection == 9:
         ##Instert call for Anagram
         print("Merica")
