@@ -30,6 +30,8 @@ class Main:
     
         @param pattern: The pattern to match, with '?' as a wildcard.
         @return: A list of valid words matching the pattern, in lowercase.
+
+        Runtime: O(nk), where 'n' is the number of words in the wordlist and 'k' is the length of word.
         """
         valid_words = set()
 
@@ -52,6 +54,8 @@ class Main:
     
         @param word: The word from which a character will be removed.
         @return: A list of valid words formed by removing one character from the input word, in lowercase.
+
+        Runtime: O(nk), where 'n' is the number of words in the wordlist and 'k' is the length of word.
         """
         valid_words = set()
         word_variations = set()
@@ -70,6 +74,9 @@ class Main:
     
         @param word: The word to which a single letter will be added.
         @return: A list of valid words formed by adding one letter to the input word.
+        
+        O(26 * nk), where 'n' is the number of words in the wordlist, 'k' is the length of the word, 
+        and 26 accounts for the number of letters in the alphabet.
         """
         valid_words = set()
 
